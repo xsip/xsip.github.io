@@ -20,22 +20,27 @@ import {CommonModule} from '@angular/common';
               </div>
               <div>
                   <div class="flex gap-2 flex-col md:flex-col">
-                      <div class="flex items-center gap-1 cursor-pointer hover:scale-110 md:hover:scale-110 transition-all">
+                      <a  href="tel:+4369911070940" class="flex items-center gap-1 cursor-pointer hover:scale-110 md:hover:scale-110 transition-all">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                stroke="currentColor" class="w-4 h-4">
                               <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
                           </svg>
-                          <p class="text-sm">Email </p>
-                      </div>
-                      <div class="flex  items-center gap-1 cursor-pointer hover:scale-110 md:hover:scale-110 transition-all">
+                          <p class="text-sm">Anrufen </p>
+                      </a>
+                      <a href="mailto:xsip@pm.me" class="flex  items-center gap-1 cursor-pointer hover:scale-110 md:hover:scale-110 transition-all">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                stroke="currentColor" class="w-4 h-4">
                               <path stroke-linecap="round"
                                     d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25"/>
                           </svg>
-                          <p class="text-sm">Anrufen</p>
-                      </div>
+                          <p class="text-sm">Email</p>
+                      </a>
+
+                    <a target="_blank" href="https://www.github.com/xsip" class="flex  items-center gap-1 cursor-pointer hover:scale-110 md:hover:scale-110 transition-all">
+                      <img class="w-4 h-4 opacity-70" src="../assets/github-mark.png"/>
+                      <p class="text-sm">Github</p>
+                    </a>
 
                   </div>
               </div>
@@ -43,9 +48,9 @@ import {CommonModule} from '@angular/common';
           <div class=" md:overflow-y-scroll pb-10 flex  w-full flex-col md:w-[70%] relative rounded-tr-md rounded-br-md drop-shadow-md bg-white">
               <nav class="sticky flex flex-col items-center justify-center top-0 left-0 w-full h-[50px]  pt-2 pb-2 bg-white drop-shadow-md">
                   <ul class="h-full flex gap-6  items-center">
-                      <a href="#übermich" class="hover:scale-125 transition-all text-md cursor-pointer">Über mich</a>
-                      <a href="#werdegang" class="hover:scale-125 transition-all text-md cursor-pointer">Werdegang</a>
-                      <a href="#projekte" class="hover:scale-125 transition-all text-md cursor-pointer">Projekte</a>
+                      <a href="#übermich" class="hover:scale-125 transition-all text-sm cursor-pointer">Über mich</a>
+                      <a href="#werdegang" class="hover:scale-125 transition-all text-sm cursor-pointer">Werdegang</a>
+                      <a href="#projekte" class="hover:scale-125 transition-all text-sm cursor-pointer">Projekte</a>
                   </ul>
               </nav>
               <div id="übermich" class="h-full px-10 pt-12 h-full py-5">

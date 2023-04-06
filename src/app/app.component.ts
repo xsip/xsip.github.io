@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import {projects} from './projects';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [CommonModule],
   template: `
       <div class="w-full flex md:flex-row flex-col mx-0 md:mx-auto p-10 bg-[rgb(253,245,241)] text-[rgb(128,131,141)] md:max-w-7xl mt-auto h-screen">
-          <div class="flex rounded-tl-md rounded-bl-md flex-col justify-between w-[100%] md:w-[30%] drop-shadow-xl  border-2 p-10 pr-10 bg-[rgb(240,240,240)]">
+          <div class="flex rounded-tl-md rounded-bl-md flex-col justify-between w-[100%] md:w-[30%] drop-shadow-xl   p-10 pr-10 bg-[rgb(240,240,240)]">
               <div class="">
                   <img alt="profile" class="w-[100%] rounded-md object-contain h-auto drop-shadow-md"
                        src="../assets/profile.jpg"/>
@@ -37,15 +40,16 @@ import { Component } from '@angular/core';
                   </div>
               </div>
           </div>
-          <div class="overflow-y-scroll pb-10 flex w-full flex-col md:w-[70%] relative rounded-tr-md rounded-br-md drop-shadow-md bg-white border-2">
+          <div class=" overflow-y-scroll pb-10 flex  w-full flex-col md:w-[70%] relative rounded-tr-md rounded-br-md drop-shadow-md bg-white">
               <nav class="sticky flex flex-col items-center justify-center top-0 left-0 w-full h-[50px]  pt-2 pb-2 bg-white drop-shadow-md">
-                  <ul class="h-full flex gap-6">
-                      <li class="hover:scale-125 transition-all text-md cursor-pointer">Über mich</li>
-                      <li class="hover:scale-125 transition-all text-md cursor-pointer">Werdegang</li>
-                      <li class="hover:scale-125 transition-all text-md cursor-pointer">Projekte</li>
+                  <ul class="h-full flex gap-6  items-center">
+                      <a href="#übermich" class="hover:scale-125 transition-all text-md cursor-pointer">Über mich</a>
+                      <a href="#werdegang" class="hover:scale-125 transition-all text-md cursor-pointer">Werdegang</a>
+                      <a href="#projekte" class="hover:scale-125 transition-all text-md cursor-pointer">Projekte</a>
                   </ul>
               </nav>
-              <div class="px-10 py-5">
+              <div id="übermich" class="h-full px-10 pt-12 h-full py-5">
+                <h1 class="text-2xl font-bold pb-2">Über mich</h1>
                   <p>
                       Mein Name ist Kerschbaumer Stefan und ich bn seit mittlerweile Sechs Jahren als Fullstack
                       Developer Tätig. Ich arbeite im Frontend hauptsächlich mit Angular - beherrsche allerdings auch
@@ -75,6 +79,23 @@ import { Component } from '@angular/core';
                       gearbeitet hab.
                   </p>
               </div>
+            <div id="werdegang" class="px-10 h-full pt-10 pb-10">
+              <h1 class="text-2xl font-bold pb-2">Werdegang</h1>
+              <div class="mt-5">
+                <p class="text-md font-bold">05/2017 - 05/2023</p>
+                <p class="ml-5 text-md">Lean Coders Gmbh</p>
+                <p class="ml-5 text-md">Fullstack developer</p>
+              </div>
+            </div>
+            <div id="projekte" class="px-10 h-full pt-10 pb-10">
+              <h1 class="text-2xl font-bold pb-2">Projekte</h1>
+              <div *ngFor="let project of projects" class="mt-5">
+                <p class="text-md font-bold">{{project.client}}</p>
+                <p class="ml-5 text-md">{{project.role}}</p>
+                <p class="ml-5 text-md">{{project.description}}</p>
+                <p class="ml-5 text-md">{{project.technologies}}</p>
+              </div>
+            </div>
           </div>
       </div>
   `,
@@ -82,4 +103,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'cv-2';
+  projects: {client: string;role: string;description: string; technologies: string;}[] = projects;
 }

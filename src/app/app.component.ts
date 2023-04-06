@@ -80,7 +80,7 @@ import {FormsModule} from '@angular/forms';
                           Mein Name ist Kerschbaumer Stefan und ich bn seit mittlerweile Sechs Jahren als Fullstack
                           Developer Tätig. Ich arbeite im Frontend hauptsächlich mit Angular - beherrsche allerdings
                           auch
-                          nexts - und entwickle Backend Applikationen mit NestJS, Express oderNodeJS. Außerdem
+                          nextjs - und entwickle Backend Applikationen mit NestJS, Express oder NodeJS. Außerdem
                           beherrsche
                           ich typescript sehr gut, habe Kenntnisse in GraphQL, rxjs, ngrx und kann mit Sql, sowie NoSql(
                           MongoDB ) Datenbanken umgehen.
@@ -91,19 +91,19 @@ import {FormsModule} from '@angular/forms';
                           Vor meinem beruflichen Werdegang als Software Developer machte ich eine Ausbildung als
                           Kälteanlagen Techniker welche mir allerdings nie wirklich spaß gemacht hat. Ja klar, jetzt
                           kommt
-                          bestimmt die Frage auf weshalb ich nicht gleich damit begonnen hab meinen Traum zu lebe und
+                          bestimmt die Frage auf weshalb ich nicht gleich damit begonnen hab meinen Traum zu leben und
                           darauf
                           gibt es eine ganz einfache Antwort.
-                          Ich war immer schon ein motivierter Mensch, hatte keine lust nach der Schule nichts zu tun und
+                          Ich war immer schon ein motivierter Mensch, hatte keine Lust nach der Schule nichts zu tun und
                           habe zeitlich leider keinen Job im Bereich der Software Entwicklung gefunden weshalb ich mich
                           dann
-                          eben Entschluss bevor ich zuhause sitze in der Firma meines Vaters eine Ausbildung zu staten.
+                          eben entschloss bevor ich zuhause sitze in der Firma meines Vaters eine Ausbildung zu starten.
                       </p>
                       <p class="pt-10">
-                          Die sechs Jahre welche ich nun eben als Software Developer gearbeitet hab, habe ich Bei Lean
+                          Die sechs Jahre welche ich nun eben als Software Developer gearbeitet habe, habe ich Bei Lean
                           Coders verbracht was auch eine echt tolle Firma ist. Machmmal allerdings, da kommt das
-                          Verlangen
-                          Veränderung und sommit Entschluss ich Mitte Mai diese Firma zu verlassen und nach etwas neuem
+                          Verlangen zur
+                          Veränderung und sommit entschloss ich Mitte Mai 2023 diese Firma zu verlassen und nach etwas neuem
                           Ausschau zu halten.
                       </p>
                       <p class="pt-10">

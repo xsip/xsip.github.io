@@ -71,7 +71,7 @@ import {FormsModule} from '@angular/forms';
                       >
                   </div>
               </nav>
-              <div id="übermich" class="h-full px-10 pt-12 h-full py-5">
+              <div id="übermich" class=" px-10 pt-12 py-5">
                   <h1 class="text-2xl font-bold pb-2">Über mich</h1>
                   <p>
                       Mein Name ist Kerschbaumer Stefan und ich bn seit mittlerweile Sechs Jahren als Fullstack

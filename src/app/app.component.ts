@@ -50,7 +50,7 @@ import {FormsModule} from '@angular/forms';
                       </div>
                   </div>
               </div>
-              <div class=" md:overflow-y-scroll dark:bg-slate-700 dark:text-white  pb-12 flex  w-full flex-col md:w-[70%] relative rounded-tr-md rounded-br-md drop-shadow-md bg-white">
+              <div class=" md:overflow-y-scroll dark:bg-slate-700 dark:text-white  pb-12 mb-5 flex  w-full flex-col md:w-[70%] relative rounded-tr-md rounded-br-md drop-shadow-md bg-white">
                   <nav class="sticky flex flex-row items-center justify-between px-5 top-0 left-0 w-full h-[50px]  pt-2 pb-2 bg-white dark:dark:bg-slate-800 drop-shadow-md">
                       <ul class="h-full flex gap-6  items-center">
                           <a href="#übermich" class="hover:scale-125 transition-all text-sm cursor-pointer">Über
@@ -121,10 +121,16 @@ import {FormsModule} from '@angular/forms';
                   </div>
                   <div id="projekte" class="px-10 h-full pt-10 pb-10">
                       <h1 class="text-2xl font-bold pb-2">Projekte</h1>
-                      <div *ngFor="let project of projects" class="mt-5">
-                          <p class="text-md font-bold">{{project.client}}</p>
+                      <div *ngFor="let project of projects" class="mt-5 border-b-2 pb-2">
+                        <p class=" font-bold text-md">Kunde</p>
+                          <p class="text-md ml-5">{{project.client}}</p>
+                        <p class=" font-bold text-md">Rolle</p>
                           <p class="ml-5 text-md">{{project.role}}</p>
+                          <p class=" font-bold text-md">Tasks</p>
+                          <p class="ml-5 text-md" [innerHTML]="project.tasks"></p>
+                        <p class=" font-bold text-md">Beschreibung</p>
                           <p class="ml-5 text-md">{{project.description}}</p>
+                        <p class=" font-bold text-md">Technologie</p>
                           <p class="ml-5 text-md">{{project.technologies}}</p>
                       </div>
                   </div>
@@ -137,7 +143,7 @@ import {FormsModule} from '@angular/forms';
 export class AppComponent implements OnInit{
   darkMode = false;
   title = 'cv-2';
-  projects: {client: string;role: string;description: string; technologies: string;}[] = projects;
+  projects: {client: string;tasks?: string;role: string;description: string; technologies: string;}[] = projects;
   darkModeChange() {
     localStorage.setItem('dark', JSON.stringify(this.darkMode));
     if(this.darkMode) {

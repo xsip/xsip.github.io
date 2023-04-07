@@ -50,7 +50,7 @@ import {FormsModule} from '@angular/forms';
                       </div>
                   </div>
               </div>
-              <div class=" md:overflow-y-scroll dark:bg-slate-700 dark:text-white  pb-12 mb-5 flex  w-full flex-col md:w-[70%] relative rounded-tr-md rounded-br-md drop-shadow-md bg-white">
+              <div class=" md:overflow-y-scroll dark:bg-slate-700 dark:text-white  pb-12 flex  w-full flex-col md:w-[70%] relative rounded-tr-md rounded-br-md drop-shadow-md bg-white">
                   <nav class="sticky flex flex-row items-center justify-between px-5 top-0 left-0 w-full h-[50px]  pt-2 pb-2 bg-white dark:dark:bg-slate-800 drop-shadow-md">
                       <ul class="h-full flex gap-6  items-center">
                           <a href="#übermich" class="hover:scale-125 transition-all text-sm cursor-pointer">Über

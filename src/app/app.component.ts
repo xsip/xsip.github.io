@@ -40,13 +40,15 @@ import {FormsModule} from '@angular/forms';
                               </svg>
                               <p class="text-sm">Email</p>
                           </a>
-                        <a href="../assets/cv.pdf" target="_blank"
+                          <a href="../assets/cv.pdf" target="_blank"
                              class="flex  md:pb-1 items-center gap-1 cursor-pointer hover:scale-110 md:hover:scale-110 transition-all">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                          </svg>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                   stroke="currentColor" class="w-4 h-4">
+                                  <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+                              </svg>
 
-                          <p class="text-sm">CV</p>
+                              <p class="text-sm">CV</p>
                           </a>
 
                           <a target="_blank" href="https://www.github.com/xsip"
@@ -61,11 +63,11 @@ import {FormsModule} from '@angular/forms';
               <div class=" md:overflow-y-scroll dark:bg-slate-700 dark:text-white  pb-12 flex  w-full flex-col md:w-[70%] relative rounded-tr-md rounded-br-md drop-shadow-md bg-white">
                   <nav class="sticky flex flex-row items-center justify-between px-5 top-0 left-0 w-full h-[50px]  pt-2 pb-2 bg-white dark:dark:bg-slate-800 drop-shadow-md">
                       <ul class="h-full flex gap-6  items-center">
-                          <a href="#übermich" class="hover:scale-125 transition-all text-sm cursor-pointer">Über
-                              mich</a>
                           <a href="#werdegang"
                              class="hover:scale-125 transition-all text-sm cursor-pointer">Werdegang</a>
                           <a href="#projekte" class="hover:scale-125 transition-all text-sm cursor-pointer">Projekte</a>
+                        <a href="#übermich" class="hover:scale-125 transition-all text-sm cursor-pointer">Über
+                          mich</a>
                       </ul>
                       <div class="flex items-center">
                           <input
@@ -82,6 +84,29 @@ import {FormsModule} from '@angular/forms';
                           >
                       </div>
                   </nav>
+                  <div id="werdegang" class="px-10 pt-10 pb-10">
+                      <h1 class="text-2xl font-bold pb-2">Werdegang</h1>
+                      <div class="mt-5">
+                          <p class="text-md font-bold">05/2017 - 05/2023</p>
+                          <p class="ml-5 text-md">Lean Coders Gmbh</p>
+                          <p class="ml-5 text-md">Fullstack developer</p>
+                      </div>
+                  </div>
+                  <div id="projekte" class="px-10 pt-10 pb-10">
+                      <h1 class="text-2xl font-bold pb-2">Projekte</h1>
+                      <div *ngFor="let project of projects" class="mt-5 border-b-2 pb-2">
+                          <p class=" font-bold text-md">Kunde</p>
+                          <p class="text-md ml-5">{{project.client}}</p>
+                          <p class=" font-bold text-md">Rolle</p>
+                          <p class="ml-5 text-md">{{project.role}}</p>
+                          <p class=" font-bold text-md">Tasks</p>
+                          <p class="ml-5 text-md" [innerHTML]="project.tasks"></p>
+                          <p class=" font-bold text-md">Beschreibung</p>
+                          <p class="ml-5 text-md">{{project.description}}</p>
+                          <p class=" font-bold text-md">Technologie</p>
+                          <p class="ml-5 text-md">{{project.technologies}}</p>
+                      </div>
+                  </div>
                   <div id="übermich" class=" px-10 pt-12 py-5">
                       <h1 class="text-2xl font-bold pb-2">Über mich</h1>
                       <p>
@@ -111,36 +136,14 @@ import {FormsModule} from '@angular/forms';
                           Die sechs Jahre welche ich nun eben als Software Developer gearbeitet habe, habe ich Bei Lean
                           Coders verbracht was auch eine echt tolle Firma ist. Machmmal allerdings, da kommt das
                           Verlangen zur
-                          Veränderung und sommit entschloss ich Mitte Mai 2023 diese Firma zu verlassen und nach etwas neuem
+                          Veränderung und sommit entschloss ich Mitte Mai 2023 diese Firma zu verlassen und nach etwas
+                          neuem
                           Ausschau zu halten.
                       </p>
                       <p class="pt-10">
                           Im nächsten abschnitt sehen sie eine Auflistung der Projekte in welchen ich für lean coders
                           gearbeitet hab.
                       </p>
-                  </div>
-                  <div id="werdegang" class="px-10 h-full pt-10 pb-10">
-                      <h1 class="text-2xl font-bold pb-2">Werdegang</h1>
-                      <div class="mt-5">
-                          <p class="text-md font-bold">05/2017 - 05/2023</p>
-                          <p class="ml-5 text-md">Lean Coders Gmbh</p>
-                          <p class="ml-5 text-md">Fullstack developer</p>
-                      </div>
-                  </div>
-                  <div id="projekte" class="px-10 h-full pt-10 pb-10">
-                      <h1 class="text-2xl font-bold pb-2">Projekte</h1>
-                      <div *ngFor="let project of projects" class="mt-5 border-b-2 pb-2">
-                        <p class=" font-bold text-md">Kunde</p>
-                          <p class="text-md ml-5">{{project.client}}</p>
-                        <p class=" font-bold text-md">Rolle</p>
-                          <p class="ml-5 text-md">{{project.role}}</p>
-                          <p class=" font-bold text-md">Tasks</p>
-                          <p class="ml-5 text-md" [innerHTML]="project.tasks"></p>
-                        <p class=" font-bold text-md">Beschreibung</p>
-                          <p class="ml-5 text-md">{{project.description}}</p>
-                        <p class=" font-bold text-md">Technologie</p>
-                          <p class="ml-5 text-md">{{project.technologies}}</p>
-                      </div>
                   </div>
               </div>
           </div>

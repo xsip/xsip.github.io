@@ -66,11 +66,11 @@ import {FormsModule} from '@angular/forms';
                           <a href="#werdegang"
                              class="hover:scale-125 transition-all text-sm cursor-pointer">Werdegang</a>
                           <a href="#projekte" class="hover:scale-125 transition-all text-sm cursor-pointer">Projekte</a>
-                        <a href="#übermich" class="hover:scale-125 transition-all text-sm cursor-pointer">Über
-                          mich</a>
+                          <a href="#übermich" class="hover:scale-125 transition-all text-sm cursor-pointer">Über
+                              mich</a>
                       </ul>
-                      <div class="flex items-center">
-                          <input
+                      <div class="h-32">
+                          <!--<input
                                   (change)="darkModeChange()"
                                   [(ngModel)]="darkMode"
                                   class="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-100 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary"
@@ -81,8 +81,21 @@ import {FormsModule} from '@angular/forms';
                                   class="inline-block text-sm pl-[0.15rem] hover:cursor-pointer"
                                   for="flexSwitchCheckDefault"
                           >darkmode</label
-                          >
+                          >!-->
                       </div>
+                    <div *ngIf="darkMode" (click)="darkModeToggle()" class="z-50 w-5 cursor-pointer hover:scale-110 h-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                         stroke="currentColor" className="w-6 h-6">
+                      <path strokeLinecap="round" strokeLinejoin="round"
+                            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
+                    </svg>
+                    </div>
+                    <div *ngIf="!darkMode" (click)="darkModeToggle()" class="z-50 w-5 flex cursor-pointer hover:scale-110 h-5">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                      </svg>
+
+                    </div>
                   </nav>
                   <div id="werdegang" class="px-10 pt-10 pb-10">
                       <h1 class="text-2xl font-bold pb-2">Werdegang</h1>
@@ -155,6 +168,10 @@ export class AppComponent implements OnInit{
   darkMode = false;
   title = 'cv-2';
   projects: {client: string;tasks?: string;role: string;description: string; technologies: string;}[] = projects;
+  darkModeToggle() {
+    this.darkMode = !this.darkMode;
+    this.darkModeChange();
+  }
   darkModeChange() {
     localStorage.setItem('dark', JSON.stringify(this.darkMode));
     if(this.darkMode) {
@@ -165,7 +182,7 @@ export class AppComponent implements OnInit{
     document.body.classList.remove('dark');
   }
   ngOnInit() {
-    this.darkMode = JSON.parse(localStorage.getItem('dark') ?? 'false');
+    this.darkMode = JSON.parse(localStorage.getItem('dark') ?? 'true');
     this.darkModeChange();
   }
 }

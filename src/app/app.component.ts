@@ -17,7 +17,7 @@ import {FormsModule} from '@angular/forms';
                            src="../assets/profile.jpg"/>
                       <ng-template #lightpic>
                           <img alt="profile" class=" w-[100%] rounded-md object-contain h-auto drop-shadow-md"
-                               src="../assets/profile-dark.jpg"/>
+                               src="../assets/profile.jpg"/>
                       </ng-template>
 
                       <h1 class="text-xl mt-5 font-bold">Kerschbaumer Stefan</h1>

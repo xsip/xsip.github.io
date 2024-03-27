@@ -13,7 +13,7 @@ import {bounceIn, fadeInOut} from "./animations";
   standalone: true,
   imports: [RouterOutlet, NgForOf, NgTemplateOutlet, ConnectingDotsDirective, AsyncPipe, NgIf, RouterLink, RouterLinkActive, FormsModule, ProjectComponent],
   template: `
-    <div [@bounceIn]="true" class="relative h-auto pb-10">
+    <div [@fadeInOut]="true" class="relative h-auto pb-10">
       <div
         class="w-[100vw] sticky top-0 left-0 bg-white dark:bg-gray-800 dark:text-white z-[999] md:drop-shadow-2xl h-[3rem]">
         <div class="container md:mx-auto px-10  flex h-full justify-between items-center">
@@ -129,7 +129,7 @@ import {bounceIn, fadeInOut} from "./animations";
               </h5>
               <img class="mt-5 pb-5 dark:invert" src="/./assets/lean-coders.png" alt="">
               <p class="text-base">
-                SeniorFullstack Developer im Consulting mit Einsatz in diversen Projekten. Für mehr informationen siehe
+                Senior Fullstack Developer im Consulting mit Einsatz in diversen Projekten. Für mehr informationen siehe
                 <b>ProjektListe</b>
               </p>
             </div>
@@ -138,7 +138,7 @@ import {bounceIn, fadeInOut} from "./animations";
         <div  data-aos="fade-left" class="me-image  drop-shadow-2xl rounded-md md:w-2/3 md:block hidden"></div>
       </div>
       <div class="me-image-sm md:hidden block w-[100vw] h-[100vh]">
-        <div class="h-full backdrop-blur-md relative top-0 left-0 z-10 overflow-hidden">
+        <div class="h-full backdrop-blur-xs bg-[rgba(35,35,35,0.7)] relative top-0 left-0 z-10 overflow-hidden">
         </div>
       </div>
       <div class="w-full min-h-full  bg-gray-100 dark:bg-transparent">
@@ -240,7 +240,7 @@ import {bounceIn, fadeInOut} from "./animations";
       }
     `
   ],
-  animations: [bounceIn()]
+  animations: [fadeInOut()]
 })
 export class AppComponent implements OnInit {
   title = 'portfolio';

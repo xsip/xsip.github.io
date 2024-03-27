@@ -25,7 +25,7 @@ import {Project} from "../models/project";
             {{ project().position }}
           </h5>
         </div>
-        <p class="h-1/4">{{ project().description }}</p>
+        <p class="h-1/4 mt-2">{{ project().description }}</p>
         <ul class="h-1/4 mt-5 ml-5 list-disc">
           <li *ngFor="let bulletPoint of project().bulletPoints">
             {{ bulletPoint }}

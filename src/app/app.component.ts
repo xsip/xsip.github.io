@@ -80,16 +80,16 @@ import {bounceIn, fadeInOut} from "./animations";
 
         <div class="container md:mx-auto   py-2 flex h-full items-center">
           <div class="flex gap-2">
-            <div
+            <a href="https://www.github.com/xsip" target="_blank"
               class="flex items-center dark:fill-white dark:text-white hover:scale-105 cursor-pointer transition-all ease-in-out px-5 gap2">
               <img class="h-9 dark:hidden" src="/./assets/icons/github-mark.svg" alt="">
               <img class="h-9 hidden dark:block" src="/./assets/icons/github-mark-dark.svg" alt="">
               <p class="ml-5 font-bold">GitHub</p>
-            </div>
-            <div class="flex items-center px-5 hover:scale-105 cursor-pointer transition-all ease-in-out gap2">
+            </a>
+            <a href="https://www.linkedin.com/in/stefan-kerschbaumer-343501196/" target="_blank" class="flex items-center px-5 hover:scale-105 cursor-pointer transition-all ease-in-out gap2">
               <img class="h-9" src="/./assets/icons/LI-In-Bug.png" alt="">
               <p class="ml-5 font-bold">LinkedIn</p>
-            </div>
+            </a>
           </div>
         </div>
       </div>

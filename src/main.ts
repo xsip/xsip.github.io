@@ -1,8 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { importProvidersFrom } from '@angular/core';
-import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
+import {bootstrapApplication} from '@angular/platform-browser';
+import {appConfig} from './app/app.config';
 import {AppComponent} from './app/app.component';
+import AOS from 'aos';
 
-bootstrapApplication(AppComponent,{
-  providers: [importProvidersFrom(CommonModule, BrowserModule)],
-}).catch(err => console.error(err));
+AOS.init();
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));

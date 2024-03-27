@@ -1,228 +1,317 @@
-import {Component, OnInit} from '@angular/core';
-import {projects} from './projects';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-// bg-[rgb(253,245,241)] dark:bg-slate-600
+import {AfterViewInit, Component, inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {AsyncPipe, isPlatformBrowser, NgForOf, NgIf, NgTemplateOutlet} from "@angular/common";
+import {ConnectingDotsDirective} from "./connecting-dots.directive";
+import { share } from 'rxjs';
+import {FormsModule} from "@angular/forms";
+import {ProjectComponent} from "./project/project.component";
+import {Project} from "./models/project";
+import {projects} from "./data/projects";
+import {bounceIn, fadeInOut} from "./animations";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [RouterOutlet, NgForOf, NgTemplateOutlet, ConnectingDotsDirective, AsyncPipe, NgIf, RouterLink, RouterLinkActive, FormsModule, ProjectComponent],
   template: `
-      <div class="bg-[rgb(253,245,241)] w-full h-screen dark:bg-gradient-to-r dark:from-slate-700 dark:to-slate-800">
-          <div class="w-full flex md:flex-row flex-col mx-0 md:mx-auto md:p-10  text-[rgb(128,131,141)] md:max-w-7xl mt-auto h-screen">
-              <div class="flex rounded-tl-md rounded-bl-md flex-col justify-between w-[100%] md:w-[30%] drop-shadow-xl   p-10 pr-10 dark:bg-slate-600  dark:text-white bg-[rgb(240,240,240)]">
-                  <div class="">
-                      <img *ngIf="!isDarkMode(); else lightpic" alt="profile"
-                           class="w-[100%] rounded-md object-contain h-auto drop-shadow-md"
-                           src="../assets/profile.jpg"/>
-                      <ng-template #lightpic>
-                          <img alt="profile" class=" w-[100%] rounded-md object-contain h-auto drop-shadow-md"
-                               src="../assets/profile.jpg"/>
-                      </ng-template>
-
-                      <h1 class="text-xl mt-5 font-bold">Kerschbaumer Stefan</h1>
-                      <h1 class="text-xl font-bold">Fullstack Developer</h1>
-                      <h1 class="text-md break-words ">Angular, NodeJS, Typescript, NestJS, Javascript,HTML,SCSS,CSS,
-                          GraphQL, Rxjs,Ngrx</h1>
-
-                  </div>
-                  <div>
-                      <div class="gap-2 flex-row mt-2 flex md:inline-block">
-                          <a href="tel:+4369911070940"
-                             class=" md:pb-1 flex items-center gap-1 cursor-pointer hover:scale-110 md:hover:scale-110 transition-all">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                   stroke="currentColor" class="w-4 h-4">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
-                              </svg>
-                              <p class="text-sm">Anrufen </p>
-                          </a>
-                          <a href="mailto:xsip@pm.me"
-                             class="flex md:pb-1  w-auto items-center gap-1 cursor-pointer hover:scale-110 md:hover:scale-110 transition-all">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                   stroke="currentColor" class="w-4 h-4">
-                                  <path stroke-linecap="round"
-                                        d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25"/>
-                              </svg>
-                              <p class="text-sm">Email</p>
-                          </a>
-                          <a href="../assets/cv.pdf" target="_blank"
-                             class="flex  md:pb-1 items-center gap-1 cursor-pointer hover:scale-110 md:hover:scale-110 transition-all">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                   stroke="currentColor" class="w-4 h-4">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
-                              </svg>
-
-                              <p class="text-sm">CV</p>
-                          </a>
-
-                          <a target="_blank" href="https://www.github.com/xsip"
-                             class="flex  items-center gap-1 cursor-pointer hover:scale-110 md:hover:scale-110 transition-all">
-                              <img *ngIf="!isDarkMode(); else lightIcon" class="w-4 h-4 opacity-70"
-                                   src="../assets/github-mark.png"/>
-                              <ng-template #lightIcon>
-                                  <img class="w-4 h-4 opacity-70"
-                                       src="../assets/github-mark-white.png"/>
-                              </ng-template>
-                              <p class="text-sm">Github</p>
-                          </a>
-
-                      </div>
-                  </div>
-              </div>
-              <div class=" md:overflow-y-scroll dark:bg-slate-700 dark:text-white  pb-12 flex  w-full flex-col md:w-[70%] relative rounded-tr-md rounded-br-md drop-shadow-md bg-white">
-                  <nav class="sticky flex flex-row items-center justify-between px-5 top-0 left-0 w-full h-[50px]  pt-2 pb-2 bg-white dark:dark:bg-slate-800 drop-shadow-md">
-                      <ul class="h-full flex gap-6  items-center">
-                          <a href="#werdegang"
-                             class="hover:scale-125 transition-all text-sm cursor-pointer">Werdegang</a>
-                          <a href="#projekte" class="hover:scale-125 transition-all text-sm cursor-pointer">Projekte</a>
-                          <a href="#übermich" class="hover:scale-125 transition-all text-sm cursor-pointer">Über
-                              mich</a>
-                      </ul>
-                      <div class="h-32">
-                          <!--<input
-                                  (change)="darkModeChange()"
-                                  [(ngModel)]="darkMode"
-                                  class="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-100 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary"
-                                  type="checkbox"
-                                  role="switch"
-                                  id="flexSwitchCheckDefault"/>
-                          <label
-                                  class="inline-block text-sm pl-[0.15rem] hover:cursor-pointer"
-                                  for="flexSwitchCheckDefault"
-                          >darkmode</label
-                          >!-->
-                      </div>
-                    <div class="flex items-center">
-                      <div class="w-14 h-8">
-                        <input type="checkbox" id="dark-mode-toggle" [(ngModel)]="darkMode" class="hidden"
-                               (change)="darkModeChange()"/>
-                        <label for="dark-mode-toggle"
-                               class="transition-all delay-0 w-full h-full bg-[rgb(220,220,220)] dark:bg-slate-600 rounded-full p-1 flex justify-between items-center  cursor-pointer">
-                        <span class="inline ml-1 dark:hidden"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                   viewBox="0 0 24 24" stroke-width="1.5"
-                                                                   stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round"
-        d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
-</svg>
-</span>
-                          <span class="w-6 h-6 rounded-full bg-white dark:bg-gray-800 block float-right dark:float-left"></span>
-                          <span class="hidden ml-1 dark:inline"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                     viewBox="0 0 24 24" stroke-width="1.5"
-                                                                     stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round"
-        d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
-</svg>
-</span>
-                        </label>
-                      </div>
-                    </div>
-                      <!--<div *ngIf="darkMode" (click)="darkModeToggle()"
-                           class="z-50 w-5 cursor-pointer hover:scale-110 h-5">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
-                               stroke="currentColor" className="w-6 h-6">
-                              <path strokeLinecap="round" strokeLinejoin="round"
-                                    d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
-                          </svg>
-                      </div>
-                      <div *ngIf="!darkMode" (click)="darkModeToggle()"
-                           class="z-50 w-5 flex cursor-pointer hover:scale-110 h-5">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                               stroke="currentColor" class="w-6 h-6">
-                              <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
-                          </svg>
-
-                      </div>!-->
-                  </nav>
-                  <div id="werdegang" class="px-10 pt-10 pb-10">
-                      <h1 class="text-2xl font-bold pb-2">Werdegang</h1>
-                      <div class="mt-5">
-                          <p class="text-md font-bold">05/2017 - 05/2023</p>
-                          <p class="ml-5 text-md">Lean Coders Gmbh</p>
-                          <p class="ml-5 text-md">Fullstack developer</p>
-                      </div>
-                  </div>
-                  <div id="projekte" class="px-10 pt-10 pb-10">
-                      <h1 class="text-2xl font-bold pb-2">Projekte</h1>
-                      <div *ngFor="let project of projects" class="mt-5 border-b-2 pb-2">
-                          <p class=" font-bold text-md">Kunde</p>
-                          <p class="text-md ml-5">{{project.client}}</p>
-                          <p class=" font-bold text-md">Rolle</p>
-                          <p class="ml-5 text-md">{{project.role}}</p>
-                          <p class=" font-bold text-md">Tasks</p>
-                          <p class="ml-5 text-md" [innerHTML]="project.tasks"></p>
-                          <p class=" font-bold text-md">Beschreibung</p>
-                          <p class="ml-5 text-md">{{project.description}}</p>
-                          <p class=" font-bold text-md">Technologie</p>
-                          <p class="ml-5 text-md">{{project.technologies}}</p>
-                      </div>
-                  </div>
-                  <div id="übermich" class=" px-10 pt-12 py-5">
-                      <h1 class="text-2xl font-bold pb-2">Über mich</h1>
-                      <p>
-                          Mein Name ist Kerschbaumer Stefan und ich bn seit mittlerweile Sechs Jahren als Fullstack
-                          Developer Tätig. Ich arbeite im Frontend hauptsächlich mit Angular - beherrsche allerdings
-                          auch
-                          nextjs - und entwickle Backend Applikationen mit NestJS, Express oder NodeJS. Außerdem
-                          beherrsche
-                          ich typescript sehr gut, habe Kenntnisse in GraphQL, rxjs, ngrx und kann mit Sql, sowie NoSql(
-                          MongoDB ) Datenbanken umgehen.
-                      </p>
-                      <p class="pt-10">
-                          Mein Fokus in der Entwicklung von frontend Applikationen lag und liegt dabei immer in der
-                          Entwicklung von Logiken.
-                          Vor meinem beruflichen Werdegang als Software Developer machte ich eine Ausbildung als
-                          Kälteanlagen Techniker welche mir allerdings nie wirklich spaß gemacht hat. Ja klar, jetzt
-                          kommt
-                          bestimmt die Frage auf weshalb ich nicht gleich damit begonnen hab meinen Traum zu leben und
-                          darauf
-                          gibt es eine ganz einfache Antwort.
-                          Ich war immer schon ein motivierter Mensch, hatte keine Lust nach der Schule nichts zu tun und
-                          habe zeitlich leider keinen Job im Bereich der Software Entwicklung gefunden weshalb ich mich
-                          dann
-                          eben entschloss bevor ich zuhause sitze in der Firma meines Vaters eine Ausbildung zu starten.
-                      </p>
-                      <p class="pt-10">
-                          Die sechs Jahre welche ich nun eben als Software Developer gearbeitet habe, habe ich Bei Lean
-                          Coders verbracht was auch eine echt tolle Firma ist. Machmmal allerdings, da kommt das
-                          Verlangen zur
-                          Veränderung und sommit entschloss ich Mitte Mai 2023 diese Firma zu verlassen und nach etwas
-                          neuem
-                          Ausschau zu halten.
-                      </p>
-                      <p class="pt-10">
-                          Im nächsten abschnitt sehen sie eine Auflistung der Projekte in welchen ich für lean coders
-                          gearbeitet hab.
-                      </p>
-                  </div>
-              </div>
+    <div [@bounceIn]="true" class="relative h-auto pb-10">
+      <div
+        class="w-[100vw] sticky top-0 left-0 bg-white dark:bg-gray-800 dark:text-white z-[999] md:drop-shadow-2xl h-[3rem]">
+        <div class="container md:mx-auto px-10  flex h-full justify-between items-center">
+          <h1>Portfolio</h1>
+          <div class="flex gap-5 justify-between">
+            <div
+              class="z-10 w-16 h-8 hover:scale-100 scale-95  transition-transform duration-75 cursor-pointer"
+            >
+              <input
+                type="checkbox"
+                id="dark-mode-toggle"
+                [(ngModel)]="darkMode"
+                class="hidden"
+                (change)="darkModeToggle()"
+              />
+              <label
+                for="dark-mode-toggle"
+                class="transition-all delay-0 w-full h-full bg-[rgb(220,220,220)] dark:bg-slate-600 rounded-md p-1 flex justify-between items-center  cursor-pointer"
+              >
+                    <span class="inline ml-1 dark:hidden"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                        />
+                      </svg>
+                    </span>
+                <span
+                  class="w-6 h-6 rounded-md opacity-80 bg-white dark:bg-gray-800 block float-right dark:float-left"
+                ></span>
+                <span class="hidden ml-1 dark:inline"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                        />
+                      </svg>
+                    </span>
+              </label>
+            </div>
           </div>
-      </div>
-  `,
-  styles: []
-})
-export class AppComponent implements OnInit{
-  darkMode = false;
-  title = 'cv-2';
-  projects: {client: string;tasks?: string;role: string;description: string; technologies: string;}[] = projects;
-  darkModeToggle() {
-    this.darkMode = !this.darkMode;
-    this.darkModeChange();
-  }
-  isDarkMode = () => document.body.classList.contains('dark');
-  darkModeChange() {
-    localStorage.setItem('dark', JSON.stringify(this.darkMode));
-    if(this.darkMode) {
-      document.body.classList.add('dark');
+        </div>
+        <div class="progress"></div>
 
-      return;
-    }
-    document.body.classList.remove('dark');
-  }
+      </div>
+      <div
+        class="w-[100vw] fixed  bottom-0 left-0 bg-white dark:bg-gray-800 dark:text-white z-[999] md:drop-shadow-2xl h-[3rem]">
+
+        <div class="container md:mx-auto   py-2 flex h-full items-center">
+          <div class="flex gap-2">
+            <div
+              class="flex items-center dark:fill-white dark:text-white hover:scale-105 cursor-pointer transition-all ease-in-out px-5 gap2">
+              <img class="h-9 dark:hidden" src="/./assets/icons/github-mark.svg" alt="">
+              <img class="h-9 hidden dark:block" src="/./assets/icons/github-mark-dark.svg" alt="">
+              <p class="ml-5 font-bold">GitHub</p>
+            </div>
+            <div class="flex items-center px-5 hover:scale-105 cursor-pointer transition-all ease-in-out gap2">
+              <img class="h-9" src="/./assets/icons/LI-In-Bug.png" alt="">
+              <p class="ml-5 font-bold">LinkedIn</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="home" class="hero h-[calc(100vh-3rem)] w-[100vw] relative overflow-hidden">
+        <div appConnectingDots class="h-full backdrop-blur-md relative top-0 left-0 z-10 overflow-hidden">
+          <div class="h-full w-full flex z-50 justify-center items-center container  overflow-hidden md:mx-auto mx-10">
+            <div class="text-white w-full break-words">
+              <p class="md:text-[50px] text-[20px]">{{ hiIAm }}</p>
+              <h1 class="font-medium md:text-[100px] text-[50px]">{{ myName }}</h1>
+              <p class="md:text-[40px] text-[15px]">{{ jobTitle }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="erfahrung" class="container md:mx-auto md:px-0 px-10 py-10  min-h-screen  flex flex-col md:flex-row gap-10 ">
+        <div data-aos="fade-right" class="md:w-1/3">
+          <h1 class="font-medium dark:text-white md:text-[80px] text-[30px] pb-10">Erfahrung</h1>
+          <div
+            class="mt-5 w-full drop-shadow-2xl  dark:bg-slate-800  dark:text-white rounded-lg bg-neutral-50 text-black shadow-secondary-1">
+            <div class="border-b-2 border-black/20 px-6 py-3 items-center self-center">2023- AKTUELL</div>
+            <div class="p-6 flex items-center flex-col justify-center">
+              <h5 class="mb-2 text-xl font-medium leading-tight">
+                TwinFormatics Gmbh
+              </h5>
+              <img class="mt-5 pb-5 dark:invert" src="/./assets/twinformatics.jpeg" alt="">
+              <p class="text-base">
+                Senior Fullstack Developer im bereich Versicherungen.
+              </p>
+            </div>
+          </div>
+          <div data-aos="fade-right"
+            class="mt-5 w-full drop-shadow-2xl  dark:bg-slate-800  dark:text-white rounded-lg bg-neutral-50 text-black shadow-secondary-1">
+            <div class="border-b-2 border-black/20 px-6 py-3 items-center self-center">2017-2023</div>
+            <div class="p-6 flex items-center flex-col justify-center">
+              <h5 class="mb-2 text-xl font-medium leading-tight">
+                Lean Coders Gmbh
+              </h5>
+              <img class="mt-5 pb-5 dark:invert" src="/./assets/lean-coders.png" alt="">
+              <p class="text-base">
+                SeniorFullstack Developer im Consulting mit Einsatz in diversen Projekten. Für mehr informationen siehe
+                <b>ProjektListe</b>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div  data-aos="fade-left" class="me-image  drop-shadow-2xl rounded-md md:w-2/3 md:block hidden"></div>
+      </div>
+      <div class="me-image-sm md:hidden block w-[100vw] h-[100vh]">
+        <div class="h-full backdrop-blur-md relative top-0 left-0 z-10 overflow-hidden">
+        </div>
+      </div>
+      <div class="w-full min-h-full  bg-gray-100 dark:bg-transparent">
+        <div class="container mt-10 md:mx-auto md:px-0 px-10 py-10 min-h-screen   gap-10 ">
+          <div data-aos="fade-in">
+            <h1 class="font-medium dark:text-white md:text-[80px] text-[30px] pb-10">Projektliste</h1>
+          </div>
+          <div class="grid md:grid-cols-3 grid-cols-1  items-center gap-5 w-full h-full">
+            <!--<div
+              class="absolute w-full h-full top-0 left-0  z-[-1] backdrop-blur-sm rounded-lg shadow-inner shadow-2xl"></div>
+            !-->
+            <ng-container *ngFor="let project of projects">
+              <app-project data-aos="zoom-in" [project]="project"/>
+            </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [
+    `
+      .progress {
+        z-index: 9;
+        height: 100%;
+        @apply bg-[rgba(35,35,35,0.2)] dark:bg-slate-700/40;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transform-origin: 0 50%;
+        animation: scaleProgress auto linear forwards;
+        animation-timeline: scroll(root);
+      }
+
+      @keyframes scaleProgress {
+        0% {
+          transform: scaleX(0);
+        }
+        100% {
+          transform: scaleX(1);
+        }
+      }
+
+      @keyframes colorChange {
+        0% {
+          background-color: red;
+        }
+        50% {
+          background-color: yellow;
+        }
+        100% {
+          background-color: lime;
+        }
+      }
+
+
+      .active {
+        @apply underline font-bold;
+      }
+      .lean-coders {
+        background-image: url("/./assets/lean-coders.png");
+        background-size: cover;
+        @apply bg-[rgba(235,235,235,0.8)];
+      }
+
+      .hero {
+        background-image: url('/./assets/scene.jpeg');
+        background-attachment: fixed;
+        background-size: cover;
+        background-position-y: 80%;
+      }
+
+      .me-image {
+        background-image: url('/./assets/me.jpeg');
+        background-size: cover;
+        background-position-y: 80%;
+      }
+
+      .me-image-sm {
+        background-image: url('/./assets/me.jpeg');
+        background-size: cover;
+        background-position-x: 40%;
+        background-attachment: fixed;
+      }
+
+      .switch {
+        background-image: url('/./assets/switch.jpg');
+        background-size: cover;
+      }
+
+      .medicin {
+        background-image: url('/./assets/medicin.jpg');
+        background-size: cover;
+      }
+
+      .glassmorphism {
+        @apply bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 ;
+      }
+    `
+  ],
+  animations: [bounceIn()]
+})
+export class AppComponent implements OnInit {
+  title = 'portfolio';
+  platformId = inject(PLATFORM_ID);
+  projects: Project[] = projects;
+  hiIAm = '';
+  hiIAmFullText = 'Hi, ich bin';
+  myName = '';
+  myNameFullText = 'Kerschbaumer Stefan';
+  darkMode = false;
+  route: ActivatedRoute = inject(ActivatedRoute);
+  activeFragment$ = this.route.fragment.pipe(share());
+
+  jobTitle = '';
+  jobTitleFullText = 'Senior Fullstack Developer aus Wien';
+
   ngOnInit() {
-    this.darkMode = JSON.parse(localStorage.getItem('dark') ?? 'true');
-    this.darkModeChange();
+    if (isPlatformBrowser(this.platformId)) {
+      this.darkMode = !JSON.parse(localStorage.getItem('dark') ?? 'false');
+      this.darkModeToggle();
+      let hiIaAmIteration = 0;
+      const ival = setInterval(() => {
+        if (this.hiIAm !== 'Hi, ich bin') {
+          this.hiIAm += this.hiIAmFullText[hiIaAmIteration];
+          hiIaAmIteration++
+          return;
+        }
+        this.renderName();
+        clearInterval(ival);
+      }, 50);
+    } else {
+      this.hiIAm = this.hiIAmFullText;
+      this.myName = this.myNameFullText;
+      this.jobTitle = this.jobTitleFullText;
+    }
+  }
+
+  renderName() {
+
+    let nameIteration = 0;
+    const ival = setInterval(() => {
+      if (this.myName !== 'Kerschbaumer Stefan') {
+        this.myName += this.myNameFullText[nameIteration];
+        nameIteration++
+        return;
+      }
+      this.renderTitle();
+      clearInterval(ival);
+    }, 30);
+  }
+
+  renderTitle() {
+
+    let titleIteration = 0;
+    const ival = setInterval(() => {
+      if (this.jobTitle !== 'Senior Fullstack Developer aus Wien') {
+        this.jobTitle += this.jobTitleFullText[titleIteration];
+        titleIteration++
+        return;
+      }
+      clearInterval(ival);
+    }, 20);
+  }
+
+  darkModeToggle() {
+    localStorage.setItem('dark', JSON.stringify(!this.darkMode));
+    if (!this.darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
   }
 }
+

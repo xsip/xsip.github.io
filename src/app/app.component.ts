@@ -8,10 +8,11 @@ import {ProjectComponent} from "./project/project.component";
 import {Project} from "./models/project";
 import {projects} from "./data/projects";
 import {bounceIn, fadeInOut} from "./animations";
+import {TypeTextDirective} from "./type-text.directive";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgForOf, NgTemplateOutlet, ConnectingDotsDirective, AsyncPipe, NgIf, RouterLink, RouterLinkActive, FormsModule, ProjectComponent],
+  imports: [RouterOutlet, NgForOf, NgTemplateOutlet, ConnectingDotsDirective, AsyncPipe, NgIf, RouterLink, RouterLinkActive, FormsModule, ProjectComponent, TypeTextDirective],
   template: `
     <div [@fadeInOut]="true" class="relative h-auto pb-10">
       <div
@@ -81,12 +82,13 @@ import {bounceIn, fadeInOut} from "./animations";
         <div class="container md:mx-auto   py-2 flex h-full items-center">
           <div class="flex gap-2">
             <a href="https://www.github.com/xsip" target="_blank"
-              class="flex items-center dark:fill-white dark:text-white hover:scale-105 cursor-pointer transition-all ease-in-out px-5 gap2">
+               class="flex items-center dark:fill-white dark:text-white hover:scale-105 cursor-pointer transition-all ease-in-out px-5 gap2">
               <img class="h-9 dark:hidden" src="/./assets/icons/github-mark.svg" alt="">
               <img class="h-9 hidden dark:block" src="/./assets/icons/github-mark-dark.svg" alt="">
               <p class="ml-5 font-bold">GitHub</p>
             </a>
-            <a href="https://www.linkedin.com/in/stefan-kerschbaumer-343501196/" target="_blank" class="flex items-center px-5 hover:scale-105 cursor-pointer transition-all ease-in-out gap2">
+            <a href="https://www.linkedin.com/in/stefan-kerschbaumer-343501196/" target="_blank"
+               class="flex items-center px-5 hover:scale-105 cursor-pointer transition-all ease-in-out gap2">
               <img class="h-9" src="/./assets/icons/LI-In-Bug.png" alt="">
               <p class="ml-5 font-bold">LinkedIn</p>
             </a>
@@ -97,14 +99,18 @@ import {bounceIn, fadeInOut} from "./animations";
         <div appConnectingDots class="h-full backdrop-blur-md relative top-0 left-0 z-10 overflow-hidden">
           <div class="h-full w-full flex z-50 justify-center items-center container  overflow-hidden md:mx-auto mx-10">
             <div class="text-white w-full break-words">
-              <p class="md:text-[50px] text-[20px]">{{ hiIAm }}</p>
-              <h1 class="font-medium md:text-[100px] text-[50px]">{{ myName }}</h1>
-              <p class="md:text-[40px] text-[15px]">{{ jobTitle }}</p>
+              <p class="md:text-[50px] text-[20px]" [appTypeText]="true" (typingDone)="shouldWriteName = true;"
+                 [textDelay]="50" [textToType]="hiIAmFullText"></p>
+              <h1 class="font-medium md:text-[100px] text-[50px]" [appTypeText]="shouldWriteName"
+                  (typingDone)="shouldWriteJobTitle = true;" [textDelay]="30" [textToType]="myNameFullText"></h1>
+              <p class="md:text-[40px] text-[15px]" [appTypeText]="shouldWriteJobTitle" [textDelay]="20"
+                 [textToType]="jobTitleFullText"></p>
             </div>
           </div>
         </div>
       </div>
-      <div id="erfahrung" class="container md:mx-auto md:px-0 px-10 py-10  min-h-screen  flex flex-col md:flex-row gap-10 ">
+      <div id="erfahrung"
+           class="container md:mx-auto md:px-0 px-10 py-10  min-h-screen  flex flex-col md:flex-row gap-10 ">
         <div data-aos="fade-right" class="md:w-1/3">
           <h1 class="font-medium dark:text-white md:text-[80px] text-[30px] pb-10">Erfahrung</h1>
           <div
@@ -121,7 +127,7 @@ import {bounceIn, fadeInOut} from "./animations";
             </div>
           </div>
           <div data-aos="fade-right"
-            class="mt-5 w-full drop-shadow-2xl  dark:bg-slate-800  dark:text-white rounded-lg bg-neutral-50 text-black shadow-secondary-1">
+               class="mt-5 w-full drop-shadow-2xl  dark:bg-slate-800  dark:text-white rounded-lg bg-neutral-50 text-black shadow-secondary-1">
             <div class="border-b-2 border-black/20 px-6 py-3 items-center self-center">2017-2023</div>
             <div class="p-6 flex items-center flex-col justify-center">
               <h5 class="mb-2 text-xl font-medium leading-tight">
@@ -135,7 +141,7 @@ import {bounceIn, fadeInOut} from "./animations";
             </div>
           </div>
         </div>
-        <div  data-aos="fade-left" class="me-image  drop-shadow-2xl rounded-md md:w-2/3 md:block hidden"></div>
+        <div data-aos="fade-left" class="me-image  drop-shadow-2xl rounded-md md:w-2/3 md:block hidden"></div>
       </div>
       <div class="me-image-sm md:hidden block w-[100vw] h-[100vh]">
         <div class="h-full backdrop-blur-xs bg-[rgba(35,35,35,0.7)] relative top-0 left-0 z-10 overflow-hidden">
@@ -246,64 +252,22 @@ export class AppComponent implements OnInit {
   title = 'portfolio';
   platformId = inject(PLATFORM_ID);
   projects: Project[] = projects;
-  hiIAm = '';
   hiIAmFullText = 'Hi, ich bin';
-  myName = '';
   myNameFullText = 'Kerschbaumer Stefan';
-  darkMode = false;
-  route: ActivatedRoute = inject(ActivatedRoute);
-  activeFragment$ = this.route.fragment.pipe(share());
-
-  jobTitle = '';
   jobTitleFullText = 'Senior Fullstack Developer aus Wien';
+
+  shouldWriteName = false;
+  shouldWriteJobTitle = false;
+
+  darkMode = false;
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.darkMode = !JSON.parse(localStorage.getItem('dark') ?? 'false');
       this.darkModeToggle();
-      let hiIaAmIteration = 0;
-      const ival = setInterval(() => {
-        if (this.hiIAm !== 'Hi, ich bin') {
-          this.hiIAm += this.hiIAmFullText[hiIaAmIteration];
-          hiIaAmIteration++
-          return;
-        }
-        this.renderName();
-        clearInterval(ival);
-      }, 50);
-    } else {
-      this.hiIAm = this.hiIAmFullText;
-      this.myName = this.myNameFullText;
-      this.jobTitle = this.jobTitleFullText;
     }
   }
 
-  renderName() {
-
-    let nameIteration = 0;
-    const ival = setInterval(() => {
-      if (this.myName !== 'Kerschbaumer Stefan') {
-        this.myName += this.myNameFullText[nameIteration];
-        nameIteration++
-        return;
-      }
-      this.renderTitle();
-      clearInterval(ival);
-    }, 30);
-  }
-
-  renderTitle() {
-
-    let titleIteration = 0;
-    const ival = setInterval(() => {
-      if (this.jobTitle !== 'Senior Fullstack Developer aus Wien') {
-        this.jobTitle += this.jobTitleFullText[titleIteration];
-        titleIteration++
-        return;
-      }
-      clearInterval(ival);
-    }, 20);
-  }
 
   darkModeToggle() {
     localStorage.setItem('dark', JSON.stringify(!this.darkMode));
